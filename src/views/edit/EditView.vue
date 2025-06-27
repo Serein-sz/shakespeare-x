@@ -1,16 +1,9 @@
 <script setup lang="ts">
-
-import HeaderTools from "@/views/edit/HeaderTools.vue";
-import MainContainer from "@/views/edit/MainContainer.vue";
+import { MilkdownProvider } from '@milkdown/vue';
+import MilkdownEditor from "./MilkdownEditor.vue"
 </script>
-
 <template>
-  <div>
-    <header-tools />
-    <main-container />
-  </div>
+  <MilkdownProvider>
+    <MilkdownEditor />
+  </MilkdownProvider>
 </template>
-
-<style scoped>
-
-</style>

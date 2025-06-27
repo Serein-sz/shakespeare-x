@@ -1,4 +1,6 @@
 import './assets/main.css'
+import "@milkdown/crepe/theme/common/style.css";
+import "@milkdown/crepe/theme/frame.css";
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
