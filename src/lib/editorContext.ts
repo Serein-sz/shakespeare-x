@@ -1,5 +1,5 @@
 export const defaultRowHeight = 20;
-export const defaultColWeight = 24;
+export const defaultColWeight = 64;
 export const defaultRowCount = 160;
 export const defaultColCount = 24;
 export const defaultBorder = 1;
