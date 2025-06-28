@@ -19,6 +19,7 @@
     "@milkdown/kit": "^7.14.0",
     "@milkdown/vue": "^7.14.0",
     "@tailwindcss/vite": "^4.1.11",
+    "@vueuse/core": "^13.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "pinia": "^3.0.3",
