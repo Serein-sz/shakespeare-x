@@ -18,8 +18,8 @@ onMounted(() => {
   <div class="w-full h-screen flex justify-center">
     <div class="w-80 bg-amber-200"></div>
     <Separator orientation="vertical" />
-    <div ref="editorWrapperRef" class="w-[calc(100vw-40rem)] h-screen overflow-y-auto">
-      <MilkdownEditorWrapper />
+    <div class="w-[calc(100vw-40rem)] h-screen overflow-y-auto">
+      <MilkdownEditorWrapper ref="editorWrapperRef" />
     </div>
     <Separator orientation="vertical" class="w-1" />
     <TitleView class="w-80 h-full overflow-y-auto" />

@@ -2,19 +2,15 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useDocumentStore = defineStore('document', () => {
-  const markdown = ref<string>(`# Milkdown Vue Crepe
-## h2
-### h3
-#### h4
-##### h5
-###### h6
-# Milkdown Vue Crepe
-## h2
-### h3
-#### h4
-##### h5
-###### h6
-`.repeat(100))
+  const markdown = ref<string>(`# Milkdown 编辑器
+重写内部组件
+
+## 使用自定义字体
+### 注册全局组件
+## 布局插槽
+### 使用视图过渡 API
+#### 关于外观切换
+`)
 
   const titleElements = ref<HTMLElement[]>([])
 
