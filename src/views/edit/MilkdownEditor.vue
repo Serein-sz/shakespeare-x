@@ -45,7 +45,7 @@ useEditor(root => {
 
 <template>
   <div ref="editorWrapperRef" class="h-full bg-[#1A1A1A]">
-    <Milkdown class="h-full" />
+    <Milkdown />
   </div>
 </template>
 <style scoped>

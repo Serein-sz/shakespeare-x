@@ -14,10 +14,10 @@ function activeTitle(event, element: HTMLElement) {
     return;
   }
   markerRef.value.style.top = `calc(${event.target.offsetTop}px + 0.375rem)`;
-  element.scrollIntoView({
-    behavior: 'smooth', // 可选：'auto'（立即滚动）或 'smooth'（平滑滚动）
-    block: 'start'      // 使元素顶部对齐容器顶部
-  });
+  // element.scrollIntoView({
+  //   behavior: 'smooth', // 可选：'auto'（立即滚动）或 'smooth'（平滑滚动）
+  //   block: 'start'      // 使元素顶部对齐容器顶部
+  // });
 }
 
 function getTitleLevel(element: HTMLElement): number {
