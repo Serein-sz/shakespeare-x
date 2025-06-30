@@ -13,18 +13,18 @@ function updateTitle() {
     return;
   }
   const titles = Array.from(editorWrapperRef.value.querySelectorAll(`
-    .milkdown > div:nth-child(1) h1, 
-    .milkdown > div:nth-child(1) h2, 
-    .milkdown > div:nth-child(1) h3, 
-    .milkdown > div:nth-child(1) h4, 
-    .milkdown > div:nth-child(1) h5, 
+    .milkdown > div:nth-child(1) h1,
+    .milkdown > div:nth-child(1) h2,
+    .milkdown > div:nth-child(1) h3,
+    .milkdown > div:nth-child(1) h4,
+    .milkdown > div:nth-child(1) h5,
     .milkdown > div:nth-child(1) h6
   `));
   if (!titles) {
     console.warn("No title elements found.");
     return;
   }
-  updateTitleElements(titles);
+  updateTitleElements(titles as HTMLElement[]);
 }
 
 useEditor(root => {
@@ -35,6 +35,7 @@ useEditor(root => {
       updateTitle()
     });
     listener.markdownUpdated(() => {
+      console.log('crepe.getMarkdown(): ', crepe.getMarkdown());
       updateTitle();
     });
 
