@@ -50,7 +50,7 @@ useEditor(root => {
   </div>
 </template>
 <style scoped>
-:deep .milkdown>div:nth-child(1) {
+:deep(.milkdown>div:nth-child(1)) {
   min-height: 100vh;
 }
 </style>
