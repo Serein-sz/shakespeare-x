@@ -10,6 +10,7 @@ import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/compon
 import Apis from "@/api";
 import {useRequest} from "alova/client";
 import {Loader2} from "lucide-vue-next";
+import {GlowingEffect} from "@/components/ui/glowing-effect";
 
 const router = useRouter()
 
@@ -40,7 +41,14 @@ const onSubmit = form.handleSubmit(
 <template>
   <div class="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
     <div class="w-full max-w-sm">
-      <Card class="mx-auto max-w-sm">
+      <Card class="mx-auto max-w-sm relative">
+        <GlowingEffect
+          :spread="40"
+          :glow="true"
+          :disabled="false"
+          :proximity="64"
+          :inactive-zone="0.01"
+        />
         <CardHeader>
           <CardTitle class="text-xl">
             Sign Up

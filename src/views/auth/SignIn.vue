@@ -12,6 +12,7 @@ import {toTypedSchema} from '@vee-validate/zod'
 import * as z from 'zod'
 import Apis from "@/api";
 import {useRequest} from "alova/client";
+import {GlowingEffect} from "@/components/ui/glowing-effect";
 
 const router = useRouter()
 
@@ -51,7 +52,14 @@ const onSubmit = form.handleSubmit(
 <template>
   <div class="flex min-h-svh flex items-center justify-center gap-6 bg-background p-6 md:p-10">
     <div class="w-full max-w-sm">
-      <Card :class="cn('flex flex-col gap-6')">
+      <Card :class="cn('flex flex-col gap-6', 'relative')">
+        <GlowingEffect
+          :spread="40"
+          :glow="true"
+          :disabled="false"
+          :proximity="64"
+          :inactive-zone="0.01"
+        />
         <CardContent>
           <form @submit="onSubmit">
             <div class="flex flex-col gap-6">
