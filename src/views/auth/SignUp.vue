@@ -84,7 +84,6 @@ const onSubmit = form.handleSubmit(
                       <Input
                         id="email"
                         type="email"
-                        placeholder="m@example.com"
                         required
                         v-bind="componentField"
                       />
