@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import {GalleryVerticalEnd} from 'lucide-vue-next'
+import {GalleryVerticalEnd, Loader2} from 'lucide-vue-next'
 import {cn} from '@/lib/utils.ts'
 import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
-import {Label} from '@/components/ui/label'
 import {useRouter} from "vue-router";
 import {Card, CardAction, CardContent, CardFooter} from "@/components/ui/card";
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
@@ -11,6 +10,8 @@ import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/compon
 import {useForm} from 'vee-validate'
 import {toTypedSchema} from '@vee-validate/zod'
 import * as z from 'zod'
+import Apis from "@/api";
+import {useRequest} from "alova/client";
 
 const router = useRouter()
 
@@ -21,12 +22,18 @@ const formSchema = toTypedSchema(z.object({
 
 const form = useForm({validationSchema: formSchema})
 
+const {
+  loading,
+  send,
+} = useRequest(config => Apis.auth.login_auth_login_post(config), {immediate: false});
+
 const onSubmit = form.handleSubmit(
-  (values) => {
-    console.log('Form submitted!', values)
+  async (values) => {
+    await send({data: values});
+    await router.push('/edit')
   },
   (event) => {
-    console.log('event: ', event)
+    console.error('event: ', event)
   }
 )
 
@@ -93,10 +100,10 @@ const onSubmit = form.handleSubmit(
                       <FormMessage/>
                     </FormItem>
                   </FormField>
-                  <Label for="password">Password</Label>
                 </div>
                 <CardAction class="w-full">
                   <Button type="submit" class="w-full">
+                    <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin"/>
                     Login
                   </Button>
                 </CardAction>

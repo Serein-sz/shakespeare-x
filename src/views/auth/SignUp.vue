@@ -2,10 +2,39 @@
 import {Button} from '@/components/ui/button'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card'
 import {Input} from '@/components/ui/input'
-import {Label} from '@/components/ui/label'
 import {useRouter} from "vue-router";
+import {toTypedSchema} from "@vee-validate/zod";
+import * as z from "zod";
+import {useForm} from "vee-validate";
+import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import Apis from "@/api";
+import {useRequest} from "alova/client";
+import {Loader2} from "lucide-vue-next";
 
 const router = useRouter()
+
+const formSchema = toTypedSchema(z.object({
+  name: z.string().min(2).max(50),
+  email: z.string().regex(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
+  password: z.string().min(6).max(50),
+}))
+
+const form = useForm({validationSchema: formSchema})
+
+const {
+  loading,
+  send,
+} = useRequest(config => Apis.auth.register_auth_register_post(config), {immediate: false});
+
+const onSubmit = form.handleSubmit(
+  async (values) => {
+    await send({data: values});
+    await router.push('/sign-in')
+  },
+  (event) => {
+    console.error('event: ', event)
+  }
+)
 </script>
 
 <template>
@@ -21,34 +50,63 @@ const router = useRouter()
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div class="grid gap-4">
-            <div class="grid grid-cols-2 gap-4">
+          <form @submit="onSubmit">
+            <div class="grid gap-4">
               <div class="grid gap-2">
-                <Label for="first-name">First name</Label>
-                <Input id="first-name" placeholder="Max" required/>
+                <FormField v-slot="{ componentField }" name="name">
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="name"
+                        type="text"
+                        required
+                        v-bind="componentField"
+                      />
+                    </FormControl>
+                    <FormMessage/>
+                  </FormItem>
+                </FormField>
               </div>
               <div class="grid gap-2">
-                <Label for="last-name">Last name</Label>
-                <Input id="last-name" placeholder="Robinson" required/>
+                <FormField v-slot="{ componentField }" name="email">
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="m@example.com"
+                        required
+                        v-bind="componentField"
+                      />
+                    </FormControl>
+                    <FormMessage/>
+                  </FormItem>
+                </FormField>
               </div>
+              <div class="grid gap-2">
+                <FormField v-slot="{ componentField }" name="password">
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="password"
+                        type="password"
+                        required
+                        v-bind="componentField"
+                      />
+                    </FormControl>
+                    <FormMessage/>
+                  </FormItem>
+                </FormField>
+              </div>
+              <Button type="submit" class="w-full">
+                <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin"/>
+                Create an account
+              </Button>
             </div>
-            <div class="grid gap-2">
-              <Label for="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-              />
-            </div>
-            <div class="grid gap-2">
-              <Label for="password">Password</Label>
-              <Input id="password" type="password"/>
-            </div>
-            <Button type="submit" class="w-full">
-              Create an account
-            </Button>
-          </div>
+          </form>
           <div class="mt-4 text-center text-sm">
             Already have an account?
             <span class="cursor-pointer underline" @click="() => router.push('/sign-in')">
