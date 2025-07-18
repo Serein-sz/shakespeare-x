@@ -12,7 +12,6 @@ import {toTypedSchema} from '@vee-validate/zod'
 import * as z from 'zod'
 import Apis from "@/api";
 import {useRequest} from "alova/client";
-import {Sparkles} from "@/components/ui/sparkles";
 
 const router = useRouter()
 
@@ -26,11 +25,19 @@ const form = useForm({validationSchema: formSchema})
 const {
   loading,
   send,
-} = useRequest(config => Apis.auth.login_auth_login_post(config), {immediate: false});
+} = useRequest(config => Apis.auth.token_auth_token_post(config), {
+  immediate: false,
+});
 
 const onSubmit = form.handleSubmit(
   async (values) => {
-    await send({data: values});
+    const formData = new FormData();
+    formData.append('username', values.email);
+    formData.append('password', values.password);
+    formData.append('grant_type', "password");
+    await send({
+      data: formData,
+    });
     await router.push('/edit')
   },
   (event) => {

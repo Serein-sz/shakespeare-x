@@ -88,6 +88,40 @@ type Alova2Method<
       >
     : never;
 
+export type Body_token_auth_token_post = {
+  /**
+   * Grant Type
+   * ---
+   */
+  grant_type?: string | null;
+  /**
+   * Username
+   * ---
+   * [required]
+   */
+  username: string;
+  /**
+   * Password
+   * ---
+   * [required]
+   */
+  password: string;
+  /**
+   * Scope
+   * ---
+   */
+  scope?: string;
+  /**
+   * Client Id
+   * ---
+   */
+  client_id?: string | null;
+  /**
+   * Client Secret
+   * ---
+   */
+  client_secret?: string | null;
+};
 export type ApiResponse = {
   /**
    * Code
@@ -111,43 +145,6 @@ export type ApiResponse = {
    * ---
    */
   errors?: string[] | null;
-};
-export type UserUpdate = {
-  /**
-   * Id
-   * ---
-   * [required]
-   */
-  id: string;
-  /**
-   * Name
-   * ---
-   */
-  name?: string | null;
-  /**
-   * Email
-   * ---
-   */
-  email?: string | null;
-  /**
-   * Password
-   * ---
-   */
-  password?: string | null;
-};
-export type UserLoginRequest = {
-  /**
-   * Email
-   * ---
-   * [required]
-   */
-  email: string;
-  /**
-   * Password
-   * ---
-   * [required]
-   */
-  password: string;
 };
 export type UserCreate = {
   /**
@@ -173,15 +170,60 @@ export type UserCreate = {
    */
   password: string;
 };
+export type UserUpdate = {
+  /**
+   * Id
+   * ---
+   * [required]
+   */
+  id: string;
+  /**
+   * Name
+   * ---
+   */
+  name?: string | null;
+  /**
+   * Email
+   * ---
+   */
+  email?: string | null;
+  /**
+   * Password
+   * ---
+   */
+  password?: string | null;
+};
 declare global {
   interface Apis {
-    general: {
+    auth: {
       /**
        * ---
        *
-       * [POST] Stream Endpoint
+       * [POST] Token
        *
-       * **path:** /stream
+       * **path:** /auth/token
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // [title] Grant Type
+       *   grant_type?: string | null
+       *   // [title] Username
+       *   // [required]
+       *   username: string
+       *   // [title] Password
+       *   // [required]
+       *   password: string
+       *   // [title] Scope
+       *   scope?: string
+       *   // [title] Client Id
+       *   client_id?: string | null
+       *   // [title] Client Secret
+       *   client_secret?: string | null
+       * }
+       * ```
        *
        * ---
        *
@@ -190,9 +232,63 @@ declare global {
        * type Response = unknown
        * ```
        */
-      stream_endpoint_stream_post<Config extends Alova2MethodConfig<unknown>>(
-        config?: Config
-      ): Alova2Method<unknown, 'general.stream_endpoint_stream_post', Config>;
+      token_auth_token_post<
+        Config extends Alova2MethodConfig<unknown> & {
+          data: Body_token_auth_token_post;
+        }
+      >(
+        config: Config
+      ): Alova2Method<unknown, 'auth.token_auth_token_post', Config>;
+      /**
+       * ---
+       *
+       * [POST] Register
+       *
+       * **path:** /auth/register
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // [title] Id
+       *   id?: string | null
+       *   // [title] Name
+       *   name?: string | null
+       *   // [title] Email
+       *   // [required]
+       *   email: string
+       *   // [title] Password
+       *   // [required]
+       *   password: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   // [title] Data
+       *   data?: unknown | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
+       * ```
+       */
+      register_auth_register_post<
+        Config extends Alova2MethodConfig<ApiResponse> & {
+          data: UserCreate;
+        }
+      >(
+        config: Config
+      ): Alova2Method<ApiResponse, 'auth.register_auth_register_post', Config>;
     };
     user: {
       /**
@@ -294,104 +390,6 @@ declare global {
       >(
         config: Config
       ): Alova2Method<ApiResponse, 'user.delete_user_user__id__delete', Config>;
-    };
-    auth: {
-      /**
-       * ---
-       *
-       * [POST] Login
-       *
-       * **path:** /auth/login
-       *
-       * ---
-       *
-       * **RequestBody**
-       * ```ts
-       * type RequestBody = {
-       *   // [title] Email
-       *   // [required]
-       *   email: string
-       *   // [title] Password
-       *   // [required]
-       *   password: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // [title] Code
-       *   // [required]
-       *   code: number
-       *   // [title] Message
-       *   // [required]
-       *   message: string
-       *   // [title] Data
-       *   data?: unknown | null
-       *   // [title] Errors
-       *   errors?: string[] | null
-       * }
-       * ```
-       */
-      login_auth_login_post<
-        Config extends Alova2MethodConfig<ApiResponse> & {
-          data: UserLoginRequest;
-        }
-      >(
-        config: Config
-      ): Alova2Method<ApiResponse, 'auth.login_auth_login_post', Config>;
-      /**
-       * ---
-       *
-       * [POST] Register
-       *
-       * **path:** /auth/register
-       *
-       * ---
-       *
-       * **RequestBody**
-       * ```ts
-       * type RequestBody = {
-       *   // [title] Id
-       *   id?: string | null
-       *   // [title] Name
-       *   name?: string | null
-       *   // [title] Email
-       *   // [required]
-       *   email: string
-       *   // [title] Password
-       *   // [required]
-       *   password: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // [title] Code
-       *   // [required]
-       *   code: number
-       *   // [title] Message
-       *   // [required]
-       *   message: string
-       *   // [title] Data
-       *   data?: unknown | null
-       *   // [title] Errors
-       *   errors?: string[] | null
-       * }
-       * ```
-       */
-      register_auth_register_post<
-        Config extends Alova2MethodConfig<ApiResponse> & {
-          data: UserCreate;
-        }
-      >(
-        config: Config
-      ): Alova2Method<ApiResponse, 'auth.register_auth_register_post', Config>;
     };
   }
 

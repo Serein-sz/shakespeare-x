@@ -16,9 +16,8 @@
  * **Do not edit the file manually.**
  */
 export default {
-  'general.stream_endpoint_stream_post': ['POST', '/stream'],
+  'auth.token_auth_token_post': ['POST', '/auth/token'],
+  'auth.register_auth_register_post': ['POST', '/auth/register'],
   'user.update_user_user__put': ['PUT', '/user/'],
-  'user.delete_user_user__id__delete': ['DELETE', '/user/{id}'],
-  'auth.login_auth_login_post': ['POST', '/auth/login'],
-  'auth.register_auth_register_post': ['POST', '/auth/register']
+  'user.delete_user_user__id__delete': ['DELETE', '/user/{id}']
 };
