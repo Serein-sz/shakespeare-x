@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ChevronsUpDown, Plus } from 'lucide-vue-next'
+import {ChevronsUpDown, Plus} from 'lucide-vue-next'
 
-import { type Component, ref } from 'vue'
+import {type Component, ref} from 'vue'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +18,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import {GlowingEffect} from "@/components/ui/glowing-effect";
 
 const props = defineProps<{
   workspaces: {
@@ -27,7 +28,7 @@ const props = defineProps<{
   }[]
 }>()
 
-const { isMobile } = useSidebar()
+const {isMobile} = useSidebar()
 const activeWorkspace = ref(props.workspaces[0])
 </script>
 
@@ -40,8 +41,16 @@ const activeWorkspace = ref(props.workspaces[0])
             size="lg"
             class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
-            <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-              <component :is="activeWorkspace.logo" class="size-4" />
+            <GlowingEffect
+              :spread="40"
+              :glow="true"
+              :disabled="false"
+              :proximity="64"
+              :inactive-zone="0.01"
+            />
+            <div
+              class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              <component :is="activeWorkspace.logo" class="size-4"/>
             </div>
             <div class="grid flex-1 text-left text-sm leading-tight">
               <span class="truncate font-medium">
@@ -49,7 +58,7 @@ const activeWorkspace = ref(props.workspaces[0])
               </span>
               <span class="truncate text-xs">{{ activeWorkspace.plan }}</span>
             </div>
-            <ChevronsUpDown class="ml-auto" />
+            <ChevronsUpDown class="ml-auto"/>
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -68,14 +77,14 @@ const activeWorkspace = ref(props.workspaces[0])
             @click="activeWorkspace = workspace"
           >
             <div class="flex size-6 items-center justify-center rounded-sm border">
-              <component :is="workspace.logo" class="size-3.5 shrink-0" />
+              <component :is="workspace.logo" class="size-3.5 shrink-0"/>
             </div>
             {{ workspace.name }}
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator/>
           <DropdownMenuItem class="gap-2 p-2">
             <div class="flex size-6 items-center justify-center rounded-md border bg-transparent">
-              <Plus class="size-4" />
+              <Plus class="size-4"/>
             </div>
             <div class="font-medium text-muted-foreground">
               Add workspace

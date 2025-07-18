@@ -29,7 +29,7 @@ const {
 const onSubmit = form.handleSubmit(
   async (values) => {
     await send({data: values});
-    await router.push('/sign-in')
+    await router.push('/sign/in')
   },
   (event) => {
     console.error('event: ', event)
@@ -109,7 +109,7 @@ const onSubmit = form.handleSubmit(
           </form>
           <div class="mt-4 text-center text-sm">
             Already have an account?
-            <span class="cursor-pointer underline" @click="() => router.push('/sign-in')">
+            <span class="cursor-pointer underline" @click="() => router.push('/sign/in')">
               Sign in
             </span>
           </div>

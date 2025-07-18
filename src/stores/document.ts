@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useDocumentStore = defineStore('document', () => {
@@ -10,7 +10,7 @@ export const useDocumentStore = defineStore('document', () => {
 ## 布局插槽
 ### 使用视图过渡 API
 #### 关于外观切换
-`)
+`.repeat(20))
 
   const titleElements = ref<HTMLElement[]>([])
 

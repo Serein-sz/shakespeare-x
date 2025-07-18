@@ -12,6 +12,7 @@ import {toTypedSchema} from '@vee-validate/zod'
 import * as z from 'zod'
 import Apis from "@/api";
 import {useRequest} from "alova/client";
+import {Sparkles} from "@/components/ui/sparkles";
 
 const router = useRouter()
 
@@ -37,10 +38,11 @@ const onSubmit = form.handleSubmit(
   }
 )
 
+
 </script>
 
 <template>
-  <div class="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
+  <div class="flex min-h-svh flex items-center justify-center gap-6 bg-background p-6 md:p-10">
     <div class="w-full max-w-sm">
       <Card :class="cn('flex flex-col gap-6')">
         <CardContent>
@@ -62,7 +64,7 @@ const onSubmit = form.handleSubmit(
                 <div class="text-center text-sm">
                   Don't have an account?
                   <span class="cursor-pointer underline"
-                        @click="() => router.push('/sign-up')">
+                        @click="() => router.push('/sign/up')">
                     Sign up
                   </span>
                 </div>

@@ -35,7 +35,6 @@ useEditor(root => {
       updateTitle()
     });
     listener.markdownUpdated(() => {
-      console.log('crepe.getMarkdown(): ', crepe.getMarkdown());
       updateTitle();
     });
 

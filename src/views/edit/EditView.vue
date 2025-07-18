@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { onMounted, useTemplateRef } from "vue";
+import {onMounted, useTemplateRef} from "vue";
 import AppSidebar from '@/views/edit/AppSidebar.vue'
-import {
-  SidebarInset,
-  SidebarProvider,
-} from '@/components/ui/sidebar'
-import { Separator } from '@/components/ui/separator'
+import {SidebarInset, SidebarProvider,} from '@/components/ui/sidebar'
+import {Separator} from '@/components/ui/separator'
 import MilkdownEditorWrapper from "./MilkdownEditorWrapper.vue"
 import TitleView from "./TitleView.vue";
 import {ScrollArea} from "@/components/ui/scroll-area";
 
-
 const editorWrapperRef = useTemplateRef<HTMLDivElement | null>('editorWrapperRef');
+
 
 onMounted(() => {
   if (!editorWrapperRef.value) {
@@ -19,20 +16,21 @@ onMounted(() => {
     return;
   }
 })
+
+
 </script>
 <template>
   <div class="w-full h-screen flex justify-center bg-[#1A1A1A]">
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar/>
       <SidebarInset class="flex flex-row w-full h-full">
-        <ScrollArea class="w-full max-h-screen">
-          <MilkdownEditorWrapper ref="editorWrapperRef" />
+        <ScrollArea class="w-full max-h-screen" ref="scrollAreaRef">
+          <MilkdownEditorWrapper ref="editorWrapperRef"/>
         </ScrollArea>
-<!--        <div class="w-full h-screen overflow-y-auto">-->
-<!--          -->
-<!--        </div>-->
-        <Separator orientation="vertical" class="w-1" />
-        <TitleView class="w-80 overflow-y-auto my-6 py-6" />
+        <Separator orientation="vertical" class="w-1"/>
+        <ScrollArea class="max-h-screen">
+          <TitleView class="w-60 my-6 py-6"/>
+        </ScrollArea>
       </SidebarInset>
     </SidebarProvider>
   </div>

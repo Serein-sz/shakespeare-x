@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, useTemplateRef } from "vue";
-import { useDocumentStore } from "@/stores/document";
+import {ref, useTemplateRef} from "vue";
+import {useDocumentStore} from "@/stores/document";
 
 const store = useDocumentStore();
 
@@ -24,26 +24,34 @@ function activeTitle(event: MouseEvent, element: HTMLElement) {
 function getTitleLevel(element: HTMLElement): number {
   const tagName = element.tagName.toLowerCase();
   switch (tagName) {
-    case 'h1': return 1;
-    case 'h2': return 2;
-    case 'h3': return 3;
-    case 'h4': return 4;
-    case 'h5': return 5;
-    case 'h6': return 6;
-    default: return 0; // 如果不是标题元素，返回0
+    case 'h1':
+      return 1;
+    case 'h2':
+      return 2;
+    case 'h3':
+      return 3;
+    case 'h4':
+      return 4;
+    case 'h5':
+      return 5;
+    case 'h6':
+      return 6;
+    default:
+      return 0; // 如果不是标题元素，返回0
   }
 
 }
 
 </script>
 <template>
-  <nav>
-    <div v-if="store.titleElements && store.titleElements.length > 0" class="relative pl-4">
+  <nav v-if="store.titleElements && store.titleElements.length > 0">
+    <div class="relative pl-4">
       <div ref="markerRef" class="absolute bg-[#a8b1ff] w-[2px] h-6 left-[-1px] top-[0.375rem]
-      transition-[top] duration-[250ms] ease-[cubic-bezier(0,1,0.5,1)]" />
-      <div v-for="(item, index) in store.titleElements" :key="index" @click="event => activeTitle(event, item)"
-        class="cursor-pointer text-sm text-[#98989f] hover:text-[#dfdfd6] m-2 py-1 rounded-md"
-        :class="{ [`h${getTitleLevel(item)}`]: true, 'text-[#dfdfd6]': currentActiveElement === item }">
+      transition-[top] duration-[250ms] ease-[cubic-bezier(0,1,0.5,1)]"/>
+      <div v-for="(item, index) in store.titleElements" :key="index"
+           @click="event => activeTitle(event, item)"
+           class="cursor-pointer text-sm text-[#98989f] hover:text-[#dfdfd6] m-2 py-1 rounded-md"
+           :class="{ [`h${getTitleLevel(item)}`]: true, 'text-[#dfdfd6]': currentActiveElement === item }">
         {{ item.innerText }}
       </div>
     </div>

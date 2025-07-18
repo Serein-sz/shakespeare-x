@@ -28,6 +28,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import {GlowingEffect} from "@/components/ui/glowing-effect";
 
 const props = defineProps<{
   user: {
@@ -37,20 +38,28 @@ const props = defineProps<{
   }
 }>()
 
-const { isMobile } = useSidebar()
+const {isMobile} = useSidebar()
 </script>
 
 <template>
   <SidebarMenu>
     <SidebarMenuItem>
+
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
           <SidebarMenuButton
             size="lg"
             class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
+            <GlowingEffect
+              :spread="40"
+              :glow="true"
+              :disabled="false"
+              :proximity="64"
+              :inactive-zone="0.01"
+            />
             <Avatar class="h-8 w-8 rounded-lg">
-              <AvatarImage :src="user.avatar" :alt="user.name" />
+              <AvatarImage :src="user.avatar" :alt="user.name"/>
               <AvatarFallback class="rounded-lg">
                 CN
               </AvatarFallback>
@@ -59,7 +68,7 @@ const { isMobile } = useSidebar()
               <span class="truncate font-medium">{{ user.name }}</span>
               <span class="truncate text-xs">{{ user.email }}</span>
             </div>
-            <ChevronsUpDown class="ml-auto size-4" />
+            <ChevronsUpDown class="ml-auto size-4"/>
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -71,7 +80,7 @@ const { isMobile } = useSidebar()
           <DropdownMenuLabel class="p-0 font-normal">
             <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar class="h-8 w-8 rounded-lg">
-                <AvatarImage :src="user.avatar" :alt="user.name" />
+                <AvatarImage :src="user.avatar" :alt="user.name"/>
                 <AvatarFallback class="rounded-lg">
                   CN
                 </AvatarFallback>
@@ -82,31 +91,31 @@ const { isMobile } = useSidebar()
               </div>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator/>
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              <Sparkles />
+              <Sparkles/>
               Upgrade to Pro
             </DropdownMenuItem>
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator/>
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              <BadgeCheck />
+              <BadgeCheck/>
               Account
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <CreditCard />
+              <CreditCard/>
               Billing
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Bell />
+              <Bell/>
               Notifications
             </DropdownMenuItem>
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator/>
           <DropdownMenuItem>
-            <LogOut />
+            <LogOut/>
             Log out
           </DropdownMenuItem>
         </DropdownMenuContent>
