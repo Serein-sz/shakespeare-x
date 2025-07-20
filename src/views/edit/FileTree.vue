@@ -6,10 +6,11 @@ import {
   ContextMenuTrigger
 } from "@/components/ui/context-menu";
 import {ScrollArea} from "@/components/ui/scroll-area";
-import Tree from "../components/ui/tree/Tree.vue";
+import Tree from "../../components/ui/tree/Tree.vue";
 import {FileMinus, Folder} from "lucide-vue-next";
+import type {TreeNode} from "@/components/ui/tree";
 
-const treeData = [
+const treeData: TreeNode[] = [
   {
     label: '节点2',
     value: '2',

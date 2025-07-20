@@ -16,7 +16,7 @@ import {
 import {Label} from '@/components/ui/label'
 import NavUser from '@/components/NavUser.vue'
 import TeamSwitcher from '@/components/WorkspaceSwitcher.vue'
-import FileTree from "@/views/FileTree.vue";
+import FileTree from "@/views/edit/FileTree.vue";
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   collapsible: 'icon',

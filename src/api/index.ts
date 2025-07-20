@@ -8,10 +8,10 @@ export const alovaInstance = createAlova({
   baseURL: 'http://localhost:8000',
   statesHook: vueHook,
   requestAdapter: fetchAdapter(),
-  beforeRequest: method => {
+  beforeRequest: _method => {
   },
   responded: {
-    onSuccess: async (response, method) => {
+    onSuccess: async (response) => {
       if (response.status >= 400) {
         throw new Error(response.statusText);
       }
@@ -23,12 +23,9 @@ export const alovaInstance = createAlova({
       return json.data;
     },
 
-    onError: (err, method) => {
+    onError: (err) => {
       toast.error(err.message);
     },
-
-    onComplete: async method => {
-    }
   }
 });
 
