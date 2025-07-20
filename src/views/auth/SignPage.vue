@@ -3,7 +3,8 @@ import {computed} from "vue";
 import {useColorMode} from "@vueuse/core";
 import {Sparkles} from "@/components/ui/sparkles";
 
-const particlesColor = computed(() => (useColorMode().value === "dark" ? "#FFFFFF" : "#000000"));
+const colorMode = useColorMode();
+const particlesColor = computed(() => (colorMode.value === "dark" ? "#FFFFFF" : "#000000"));
 </script>
 
 <template>
