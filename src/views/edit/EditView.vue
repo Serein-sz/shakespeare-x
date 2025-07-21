@@ -13,7 +13,7 @@ const store = useDocumentStore()
     <ScrollArea class="w-full h-screen bg-[#1A1A1A]" ref="scrollAreaRef">
       <div v-if="store.id === ''" class="flex flex-col justify-center h-screen bg-[#1A1A1A]">
         <div class="relative h-[200px] w-full overflow-hidden">
-          <VideoText src="https://cdn.magicui.design/ocean-small.webm" fontSize="96">
+          <VideoText src="/ocean-small.webm" fontSize="96">
             Shakesperare-X
           </VideoText>
         </div>

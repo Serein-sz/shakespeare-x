@@ -10,7 +10,7 @@ const particlesColor = computed(() => (colorMode.value === "dark" ? "#FFFFFF" : 
 <template>
   <div class="flex justify-center items-center">
     <div
-      class="flex h-[40rem] w-[60%] flex-col items-center justify-center overflow-hidden rounded-md bg-white dark:bg-black"
+      class="flex h-[40rem] w-[60%] flex-col items-center justify-center overflow-hidden rounded-md bg-white dark:bg-[#0A0A0A]"
     >
       <h1
         class="relative z-20 text-center text-3xl font-bold text-black lg:text-8xl md:text-6xl dark:text-white"
@@ -41,7 +41,7 @@ const particlesColor = computed(() => (colorMode.value === "dark" ? "#FFFFFF" : 
         />
 
         <div
-          class="absolute inset-0 size-full bg-white [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)] dark:bg-black"
+          class="absolute inset-0 size-full bg-white [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)] dark:bg-[#0A0A0A]"
         ></div>
       </div>
     </div>
