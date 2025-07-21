@@ -42,7 +42,7 @@ const onSubmit = form.handleSubmit(
       data: formData as unknown as Body_token_auth_token_post,
     });
     localStorage.setItem('token', token.access_token)
-    await router.push('/edit')
+    await router.push('/home')
   },
   (event) => {
     console.error('event: ', event)
