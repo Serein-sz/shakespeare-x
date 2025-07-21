@@ -16,7 +16,7 @@ const TreeItem = defineComponent(
           style={{'padding-left': `${props.depth * 0.5}rem`}}
         >
           <div
-            class="flex justify-between items-center h-[32px] mx-2 p-2 rounded-md dark:hover:bg-sidebar-accent">
+            class="flex justify-between items-center h-[32px] mx-2 p-2 rounded-md dark:hover:bg-sidebar-accent relative">
             {
               slots.content ? slots.content?.({node: props.node}) :
                 <div class="flex justify-start items-center gap-2 w-full">

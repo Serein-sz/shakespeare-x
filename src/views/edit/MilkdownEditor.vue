@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { useTemplateRef } from "vue";
-import { Crepe } from "@milkdown/crepe";
-import { Milkdown, useEditor } from "@milkdown/vue";
-import { useDocumentStore } from "@/stores/document";
+import {useTemplateRef, watch} from "vue";
+import {Crepe} from "@milkdown/crepe";
+import {Milkdown, useEditor} from "@milkdown/vue";
+import {replaceAll} from "@milkdown/kit/utils"
+import {useDocumentStore} from "@/stores/document";
+import {storeToRefs} from "pinia";
+import {TextHoverEffect} from "@/components/ui/text-hover-effect";
 
-const { markdown, updateTitleElements } = useDocumentStore();
+const store = useDocumentStore();
+const {id, markdown} = storeToRefs(store);
 const editorWrapperRef = useTemplateRef<HTMLDivElement | null>('editorWrapperRef');
 
 function updateTitle() {
@@ -24,32 +28,38 @@ function updateTitle() {
     console.warn("No title elements found.");
     return;
   }
-  updateTitleElements(titles as HTMLElement[]);
+  store.updateTitleElements(titles as HTMLElement[]);
 }
 
-useEditor(root => {
-  const crepe = new Crepe({ root, defaultValue: markdown })
+const {get} = useEditor((root: HTMLDivElement) => {
+  const crepe = new Crepe({root, defaultValue: markdown.value})
   crepe.on(listener => {
     listener.mounted(() => {
       console.log("Crepe editor mounted");
       updateTitle()
     });
     listener.markdownUpdated(() => {
+      store.update(crepe.getMarkdown())
       updateTitle();
     });
-
   })
   return crepe;
 })
+
+watch(() => id.value, () => {
+  const instance = get();
+  instance?.action(replaceAll(markdown.value))
+})
+
 </script>
 
 <template>
   <div ref="editorWrapperRef" class="h-full bg-[#1A1A1A]">
-    <Milkdown />
+    <Milkdown/>
   </div>
 </template>
 <style scoped>
-:deep(.milkdown>div:nth-child(1)) {
+:deep(.milkdown > div:nth-child(1)) {
   min-height: 100vh;
 }
 </style>

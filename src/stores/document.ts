@@ -1,27 +1,44 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
+import {ref} from 'vue';
+import {defineStore} from 'pinia';
+import {useRequest} from "alova/client";
+import type {AlovaGenerics} from "alova";
+import {throttle} from "lodash-es"
+import Apis from "@/api";
 
 export const useDocumentStore = defineStore('document', () => {
-  const markdown = ref<string>(`# Milkdown 编辑器
-重写内部组件
-
-## 使用自定义字体
-### 注册全局组件
-## 布局插槽
-### 使用视图过渡 API
-#### 关于外观切换
-`.repeat(20))
-
-  const titleElements = ref<HTMLElement[]>([])
+  const id = ref("");
+  const markdown = ref("");
+  const titleElements = ref<HTMLElement[]>([]);
 
   function updateTitleElements(newTitleElements: HTMLElement[]) {
-    titleElements.value = newTitleElements
+    titleElements.value = newTitleElements;
   }
 
-  function update(newValue: string) {
-    markdown.value = newValue
-    console.log("markdown.value: ", markdown.value);
+  const {send: getContent} = useRequest<AlovaGenerics<string>, any>(Apis.file.get_file_content_by_id_file__id__get, {
+    pathParams: {id: id.value},
+    immediate: false,
+  });
+
+  async function init(documentId: string) {
+    markdown.value = await getContent({pathParams: {id: documentId}});
+    id.value = documentId;
   }
 
-  return { markdown, update, titleElements, updateTitleElements }
+  const {send: updateContent} = useRequest(config => Apis.file.update_file_file_update_content_put(config), {immediate: false})
+
+  const updateMarkdown = throttle(async () => {
+    return await updateContent({
+      data: {
+        id: id.value,
+        content: markdown.value
+      }
+    })
+  }, 2000);
+
+  async function update(newValue: string) {
+    markdown.value = newValue;
+    updateMarkdown();
+  }
+
+  return {id, markdown, init, update, titleElements, updateTitleElements}
 })

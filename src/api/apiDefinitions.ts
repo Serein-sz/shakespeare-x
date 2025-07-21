@@ -23,5 +23,7 @@ export default {
   'user.delete_user_user__id__delete': ['DELETE', '/user/{id}'],
   'file.get_file_file__get': ['GET', '/file/'],
   'file.create_file_file__post': ['POST', '/file/'],
-  'file.delete_file_file__delete': ['DELETE', '/file/']
+  'file.delete_file_file__delete': ['DELETE', '/file/'],
+  'file.get_file_content_by_id_file__id__get': ['GET', '/file/{id}'],
+  'file.update_file_file_update_content_put': ['PUT', '/file/update-content']
 };

@@ -414,6 +414,44 @@ export type FileTreeCreate = {
    */
   user_id?: string | null;
 };
+export type ApiResponse_str_ = {
+  /**
+   * Code
+   * ---
+   * [required]
+   */
+  code: number;
+  /**
+   * Message
+   * ---
+   * [required]
+   */
+  message: string;
+  /**
+   * Data
+   * ---
+   */
+  data?: string | null;
+  /**
+   * Errors
+   * ---
+   */
+  errors?: string[] | null;
+};
+export type FileTreeUpdateContent = {
+  /**
+   * Id
+   * ---
+   * [required]
+   */
+  id: string;
+  /**
+   * Content
+   * ---
+   * [required]
+   */
+  content: string;
+};
 declare global {
   interface Apis {
     auth: {
@@ -838,6 +876,102 @@ declare global {
       >(
         config: Config
       ): Alova2Method<ApiResponse, 'file.delete_file_file__delete', Config>;
+      /**
+       * ---
+       *
+       * [GET] Get File Content By Id
+       *
+       * **path:** /file/{id}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   // [title] Id
+       *   // [required]
+       *   id: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   // [title] Data
+       *   data?: string | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
+       * ```
+       */
+      get_file_content_by_id_file__id__get<
+        Config extends Alova2MethodConfig<ApiResponse_str_> & {
+          pathParams: {
+            /**
+             * Id
+             * ---
+             * [required]
+             */
+            id: string;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<ApiResponse_str_, 'file.get_file_content_by_id_file__id__get', Config>;
+      /**
+       * ---
+       *
+       * [PUT] Update File
+       *
+       * **path:** /file/update-content
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // [title] Id
+       *   // [required]
+       *   id: string
+       *   // [title] Content
+       *   // [required]
+       *   content: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   // [title] Data
+       *   data?: unknown | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
+       * ```
+       */
+      update_file_file_update_content_put<
+        Config extends Alova2MethodConfig<ApiResponse> & {
+          data: FileTreeUpdateContent;
+        }
+      >(
+        config: Config
+      ): Alova2Method<ApiResponse, 'file.update_file_file_update_content_put', Config>;
     };
   }
 

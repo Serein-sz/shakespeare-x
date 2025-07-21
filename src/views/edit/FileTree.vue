@@ -36,6 +36,8 @@ import type {FileTreeCreate, FileTreeVo} from "@/api/globals";
 import Apis from "@/api";
 
 import {ref} from "vue";
+import {useDocumentStore} from "@/stores/document.ts";
+import {GlowBorder} from "@/components/ui/glow-border";
 
 
 const {data: treeData, send: getFiles} = useRequest<AlovaGenerics<FileTreeVo[]>, any>(
@@ -94,6 +96,15 @@ const deleteFile = async () => {
   closeDeleteFileAlert()
 }
 
+const store = useDocumentStore()
+
+const editDocument = (node: TreeNode) => {
+  if (node.type === "folder") {
+    return;
+  }
+  store.init(node.id);
+}
+
 </script>
 
 <template>
@@ -101,9 +112,15 @@ const deleteFile = async () => {
     <ContextMenuTrigger class="h-full">
       <ScrollArea class="h-full">
         <Tree :data="treeData">
-          <template #content="{ node }">
+          <template #content="{ node }" class="relative">
+            <GlowBorder
+              v-if="node.id === store.id"
+              :color="['#A07CFE', '#FE8FB5', '#FFBE7B']"
+              :border-radius="10"
+            />
             <ContextMenu>
-              <ContextMenuTrigger class="flex justify-start items-center gap-2 w-full">
+              <ContextMenuTrigger class="flex justify-start items-center gap-2 w-full"
+                                  @dblclick="() => editDocument(node)">
                 <component :is="getIcon(node)" class="size-4"/>
                 <span class="text-sm select-none">{{ node.name }}</span>
               </ContextMenuTrigger>
