@@ -88,6 +88,40 @@ type Alova2Method<
       >
     : never;
 
+export type Token = {
+  /**
+   * Access Token
+   * ---
+   * [required]
+   */
+  access_token: string;
+  /**
+   * Token Type
+   * ---
+   * [required]
+   */
+  token_type: string;
+};
+export type ApiResponse_Token_ = {
+  /**
+   * Code
+   * ---
+   * [required]
+   */
+  code: number;
+  /**
+   * Message
+   * ---
+   * [required]
+   */
+  message: string;
+  data?: Token | null;
+  /**
+   * Errors
+   * ---
+   */
+  errors?: string[] | null;
+};
 export type Body_token_auth_token_post = {
   /**
    * Grant Type
@@ -158,6 +192,11 @@ export type UserCreate = {
    */
   name?: string | null;
   /**
+   * Avatar
+   * ---
+   */
+  avatar?: string | null;
+  /**
    * Email
    * ---
    * [required]
@@ -169,6 +208,49 @@ export type UserCreate = {
    * [required]
    */
   password: string;
+};
+export type UserVo = {
+  /**
+   * Id
+   * ---
+   */
+  id?: string | null;
+  /**
+   * Name
+   * ---
+   */
+  name?: string | null;
+  /**
+   * Avatar
+   * ---
+   */
+  avatar?: string | null;
+  /**
+   * Email
+   * ---
+   * [required]
+   */
+  email: string;
+};
+export type ApiResponse_UserVo_ = {
+  /**
+   * Code
+   * ---
+   * [required]
+   */
+  code: number;
+  /**
+   * Message
+   * ---
+   * [required]
+   */
+  message: string;
+  data?: UserVo | null;
+  /**
+   * Errors
+   * ---
+   */
+  errors?: string[] | null;
 };
 export type UserUpdate = {
   /**
@@ -183,10 +265,16 @@ export type UserUpdate = {
    */
   name?: string | null;
   /**
-   * Email
+   * Avatar
    * ---
    */
-  email?: string | null;
+  avatar?: string | null;
+  /**
+   * Email
+   * ---
+   * [required]
+   */
+  email: string;
   /**
    * Password
    * ---
@@ -229,16 +317,33 @@ declare global {
        *
        * **Response**
        * ```ts
-       * type Response = unknown
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   data?: {
+       *     // [title] Access Token
+       *     // [required]
+       *     access_token: string
+       *     // [title] Token Type
+       *     // [required]
+       *     token_type: string
+       *   } | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
        * ```
        */
       token_auth_token_post<
-        Config extends Alova2MethodConfig<unknown> & {
+        Config extends Alova2MethodConfig<ApiResponse_Token_> & {
           data: Body_token_auth_token_post;
         }
       >(
         config: Config
-      ): Alova2Method<unknown, 'auth.token_auth_token_post', Config>;
+      ): Alova2Method<ApiResponse_Token_, 'auth.token_auth_token_post', Config>;
       /**
        * ---
        *
@@ -255,6 +360,8 @@ declare global {
        *   id?: string | null
        *   // [title] Name
        *   name?: string | null
+       *   // [title] Avatar
+       *   avatar?: string | null
        *   // [title] Email
        *   // [required]
        *   email: string
@@ -294,6 +401,43 @@ declare global {
       /**
        * ---
        *
+       * [GET] Get User
+       *
+       * **path:** /user/
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   data?: {
+       *     // [title] Id
+       *     id?: string | null
+       *     // [title] Name
+       *     name?: string | null
+       *     // [title] Avatar
+       *     avatar?: string | null
+       *     // [title] Email
+       *     // [required]
+       *     email: string
+       *   } | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
+       * ```
+       */
+      get_user_user__get<Config extends Alova2MethodConfig<ApiResponse_UserVo_>>(
+        config?: Config
+      ): Alova2Method<ApiResponse_UserVo_, 'user.get_user_user__get', Config>;
+      /**
+       * ---
+       *
        * [PUT] Update User
        *
        * **path:** /user/
@@ -308,8 +452,11 @@ declare global {
        *   id: string
        *   // [title] Name
        *   name?: string | null
+       *   // [title] Avatar
+       *   avatar?: string | null
        *   // [title] Email
-       *   email?: string | null
+       *   // [required]
+       *   email: string
        *   // [title] Password
        *   password?: string | null
        * }

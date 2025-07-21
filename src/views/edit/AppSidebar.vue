@@ -14,7 +14,7 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import {Label} from '@/components/ui/label'
-import NavUser from '@/components/NavUser.vue'
+import NavUser from '@/views/sidebar/NavUser.vue'
 import TeamSwitcher from '@/components/WorkspaceSwitcher.vue'
 import FileTree from "@/views/edit/FileTree.vue";
 
@@ -24,11 +24,7 @@ const props = withDefaults(defineProps<SidebarProps>(), {
 
 // This is sample data.
 const data = {
-  user: {
-    name: 'serein',
-    email: 'q13050795970@163.com',
-    avatar: '',
-  },
+
   workspaces: [
     {
       name: 'Acme Inc',
@@ -80,7 +76,7 @@ const data = {
       </SidebarGroup>
     </SidebarContent>
     <SidebarFooter>
-      <NavUser :user="data.user"/>
+      <NavUser/>
     </SidebarFooter>
     <SidebarRail/>
   </Sidebar>

@@ -18,6 +18,7 @@
 export default {
   'auth.token_auth_token_post': ['POST', '/auth/token'],
   'auth.register_auth_register_post': ['POST', '/auth/register'],
+  'user.get_user_user__get': ['GET', '/user/'],
   'user.update_user_user__put': ['PUT', '/user/'],
   'user.delete_user_user__id__delete': ['DELETE', '/user/{id}']
 };

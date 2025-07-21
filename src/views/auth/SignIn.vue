@@ -13,6 +13,8 @@ import * as z from 'zod'
 import Apis from "@/api";
 import {useRequest} from "alova/client";
 import {GlowingEffect} from "@/components/ui/glowing-effect";
+import type {Body_token_auth_token_post, Token} from "@/api/globals";
+import type {AlovaGenerics} from "alova";
 
 const router = useRouter()
 
@@ -26,7 +28,7 @@ const form = useForm({validationSchema: formSchema})
 const {
   loading,
   send,
-} = useRequest(config => Apis.auth.token_auth_token_post(config), {
+} = useRequest<AlovaGenerics<Token>, any>(config => Apis.auth.token_auth_token_post(config), {
   immediate: false,
 });
 
@@ -36,9 +38,10 @@ const onSubmit = form.handleSubmit(
     formData.append('username', values.email);
     formData.append('password', values.password);
     formData.append('grant_type', "password");
-    await send({
-      data: formData,
+    const token = await send({
+      data: formData as unknown as Body_token_auth_token_post,
     });
+    localStorage.setItem('token', token.access_token)
     await router.push('/edit')
   },
   (event) => {
