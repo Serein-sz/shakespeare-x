@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,16 +27,24 @@ const router = createRouter({
       ]
     },
     {
-      path: '/edit',
-      name: 'edit',
-      component: () => import("@/views/edit/EditView.vue")
+      path: '/home',
+      name: 'home',
+      redirect: '/home/edit',
+      component: () => import("@/views/home/Home.vue"),
+      children: [
+        {
+          path: '/home/edit',
+          name: 'home-edit',
+          component: () => import("@/views/edit/EditView.vue")
+        }
+      ]
     }
   ],
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, _from) => {
   if (to.name !== 'sign-in' && to.name !== 'sign-up' && !localStorage.getItem('token')) {
-    return { name: 'sign-in' }
+    return {name: 'sign-in'}
   }
   return true
 })

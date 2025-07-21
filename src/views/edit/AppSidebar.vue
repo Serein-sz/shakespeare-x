@@ -14,7 +14,7 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import {Label} from '@/components/ui/label'
-import NavUser from '@/views/sidebar/NavUser.vue'
+import NavUser from '@/views/home/NavUser.vue'
 import TeamSwitcher from '@/components/WorkspaceSwitcher.vue'
 import FileTree from "@/views/edit/FileTree.vue";
 

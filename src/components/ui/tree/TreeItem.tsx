@@ -2,7 +2,7 @@ import type {PropType, SlotsType} from "vue"
 import {computed, defineComponent, h, ref} from "vue";
 import type {TreeNode} from "@/components/ui/tree/index.ts";
 import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible";
-import {ChevronRight} from "lucide-vue-next";
+import {ChevronRight, FileMinus, Folder} from "lucide-vue-next";
 
 const TreeItem = defineComponent(
   (props, {slots}) => {
@@ -20,8 +20,9 @@ const TreeItem = defineComponent(
             {
               slots.content ? slots.content?.({node: props.node}) :
                 <div class="flex justify-start items-center gap-2 w-full">
-                  {props.node?.icon !== void 0 ? h(props.node.icon, {class: "size-4"}) : null}
-                  <span class="text-sm select-none">{props.node.label}</span>
+                  {props.node.type === 'folder' ? <Folder class="size-4"/> :
+                    <FileMinus class="size-4"/>}
+                  <span class="text-sm select-none">{props.node.name}</span>
                 </div>
             }
             {

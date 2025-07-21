@@ -8,7 +8,6 @@ import {createClientTokenAuthentication} from "alova/client";
 
 const {onAuthRequired, onResponseRefreshToken}
   = createClientTokenAuthentication<typeof vueHook>({
-  // ...
   refreshToken: {
     // 在请求前触发，将接收到method参数，并返回boolean表示token是否过期
     isExpired: method => {
@@ -24,7 +23,7 @@ const {onAuthRequired, onResponseRefreshToken}
     },
 
     // 当token过期时触发，在此函数中触发刷新token
-    handler: async method => {
+    handler: async _method => {
       // try {
       //   const {token, refresh_token} = await refreshToken();
       //   localStorage.setItem('token', token);
@@ -44,6 +43,7 @@ export const alovaInstance = createAlova({
   baseURL: 'http://localhost:8000',
   statesHook: vueHook,
   requestAdapter: fetchAdapter(),
+  cacheFor: null,
   beforeRequest: onAuthRequired(method => {
     const headers = method.config.headers;
     headers.Authorization = `Bearer ${localStorage.getItem('token')}`;

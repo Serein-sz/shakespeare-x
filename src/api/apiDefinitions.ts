@@ -20,5 +20,8 @@ export default {
   'auth.register_auth_register_post': ['POST', '/auth/register'],
   'user.get_user_user__get': ['GET', '/user/'],
   'user.update_user_user__put': ['PUT', '/user/'],
-  'user.delete_user_user__id__delete': ['DELETE', '/user/{id}']
+  'user.delete_user_user__id__delete': ['DELETE', '/user/{id}'],
+  'file.get_file_file__get': ['GET', '/file/'],
+  'file.create_file_file__post': ['POST', '/file/'],
+  'file.delete_file_file__delete': ['DELETE', '/file/']
 };

@@ -281,6 +281,139 @@ export type UserUpdate = {
    */
   password?: string | null;
 };
+export type FileTree = {
+  /**
+   * Id
+   * ---
+   */
+  id?: string | null;
+  /**
+   * Name
+   * ---
+   * [required]
+   */
+  name: string;
+  /**
+   * Parent Id
+   * ---
+   */
+  parent_id?: string | null;
+  /**
+   * Type
+   * ---
+   * [required]
+   */
+  type: 'folder' | 'file';
+  /**
+   * Content
+   * ---
+   */
+  content?: string | null;
+  /**
+   * User Id
+   * ---
+   * [required]
+   */
+  user_id: string;
+};
+export type FileTreeVo = {
+  /**
+   * Id
+   * ---
+   */
+  id?: string | null;
+  /**
+   * Name
+   * ---
+   * [required]
+   */
+  name: string;
+  /**
+   * Parent Id
+   * ---
+   */
+  parent_id?: string | null;
+  /**
+   * Type
+   * ---
+   * [required]
+   */
+  type: 'folder' | 'file';
+  /**
+   * Content
+   * ---
+   */
+  content?: string | null;
+  /**
+   * User Id
+   * ---
+   * [required]
+   */
+  user_id: string;
+  /**
+   * Children
+   * ---
+   */
+  children?: FileTree[] | null;
+};
+export type ApiResponse_list_FileTreeVo__ = {
+  /**
+   * Code
+   * ---
+   * [required]
+   */
+  code: number;
+  /**
+   * Message
+   * ---
+   * [required]
+   */
+  message: string;
+  /**
+   * Data
+   * ---
+   */
+  data?: FileTreeVo[] | null;
+  /**
+   * Errors
+   * ---
+   */
+  errors?: string[] | null;
+};
+export type FileTreeCreate = {
+  /**
+   * Id
+   * ---
+   */
+  id?: string | null;
+  /**
+   * Name
+   * ---
+   * [required]
+   */
+  name: string;
+  /**
+   * Parent Id
+   * ---
+   */
+  parent_id?: string | null;
+  /**
+   * Type
+   * ---
+   * [required]
+   */
+  type: 'folder' | 'file';
+  /**
+   * Content
+   * ---
+   */
+  content?: string | null;
+  /**
+   * User Id
+   * ---
+   */
+  user_id?: string | null;
+};
 declare global {
   interface Apis {
     auth: {
@@ -537,6 +670,174 @@ declare global {
       >(
         config: Config
       ): Alova2Method<ApiResponse, 'user.delete_user_user__id__delete', Config>;
+    };
+    file: {
+      /**
+       * ---
+       *
+       * [GET] Get File
+       *
+       * **path:** /file/
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   // [title] Data
+       *   data?: Array<{
+       *     // [title] Id
+       *     id?: string | null
+       *     // [title] Name
+       *     // [required]
+       *     name: string
+       *     // [title] Parent Id
+       *     parent_id?: string | null
+       *     // [title] Type
+       *     // [required]
+       *     type: 'folder' | 'file'
+       *     // [title] Content
+       *     content?: string | null
+       *     // [title] User Id
+       *     // [required]
+       *     user_id: string
+       *     // [title] Children
+       *     children?: Array<{
+       *       // [title] Id
+       *       id?: string | null
+       *       // [title] Name
+       *       // [required]
+       *       name: string
+       *       // [title] Parent Id
+       *       parent_id?: string | null
+       *       // [title] Type
+       *       // [required]
+       *       type: 'folder' | 'file'
+       *       // [title] Content
+       *       content?: string | null
+       *       // [title] User Id
+       *       // [required]
+       *       user_id: string
+       *     }> | null
+       *   }> | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
+       * ```
+       */
+      get_file_file__get<Config extends Alova2MethodConfig<ApiResponse_list_FileTreeVo__>>(
+        config?: Config
+      ): Alova2Method<ApiResponse_list_FileTreeVo__, 'file.get_file_file__get', Config>;
+      /**
+       * ---
+       *
+       * [POST] Create File
+       *
+       * **path:** /file/
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // [title] Id
+       *   id?: string | null
+       *   // [title] Name
+       *   // [required]
+       *   name: string
+       *   // [title] Parent Id
+       *   parent_id?: string | null
+       *   // [title] Type
+       *   // [required]
+       *   type: 'folder' | 'file'
+       *   // [title] Content
+       *   content?: string | null
+       *   // [title] User Id
+       *   user_id?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   // [title] Data
+       *   data?: unknown | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
+       * ```
+       */
+      create_file_file__post<
+        Config extends Alova2MethodConfig<ApiResponse> & {
+          data: FileTreeCreate;
+        }
+      >(
+        config: Config
+      ): Alova2Method<ApiResponse, 'file.create_file_file__post', Config>;
+      /**
+       * ---
+       *
+       * [DELETE] Delete File
+       *
+       * **path:** /file/
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // [title] Id
+       *   // [required]
+       *   id: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   // [title] Data
+       *   data?: unknown | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
+       * ```
+       */
+      delete_file_file__delete<
+        Config extends Alova2MethodConfig<ApiResponse> & {
+          params: {
+            /**
+             * Id
+             * ---
+             * [required]
+             */
+            id: string;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<ApiResponse, 'file.delete_file_file__delete', Config>;
     };
   }
 
