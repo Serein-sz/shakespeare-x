@@ -51,7 +51,7 @@ export const alovaInstance = createAlova({
   responded: onResponseRefreshToken({
     onSuccess: async (response): Promise<ApiResponse> => {
       if (response.status === 401) {
-        location.href = "/";
+        // location.href = "/";
         return Promise.reject(response.statusText);
       }
       if (response.status >= 400) {

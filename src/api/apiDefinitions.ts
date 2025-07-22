@@ -25,5 +25,6 @@ export default {
   'file.create_file_file__post': ['POST', '/file/'],
   'file.delete_file_file__delete': ['DELETE', '/file/'],
   'file.get_file_content_by_id_file__id__get': ['GET', '/file/{id}'],
-  'file.update_file_file_update_content_put': ['PUT', '/file/update-content']
+  'file.update_file_file_update_content_put': ['PUT', '/file/update-content'],
+  'file.move_file_file_move_to_put': ['PUT', '/file/move-to']
 };

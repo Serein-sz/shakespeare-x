@@ -37,8 +37,7 @@ import Apis from "@/api";
 
 import {ref} from "vue";
 import {useDocumentStore} from "@/stores/document.ts";
-import {GlowBorder} from "@/components/ui/glow-border";
-import {NeonBorder} from "@/components/ui/neon-border";
+import {BorderBeam} from "@/components/ui/border-beam";
 
 
 const {data: treeData, send: getFiles} = useRequest<AlovaGenerics<FileTreeVo[]>, any>(
@@ -106,41 +105,89 @@ const editDocument = (node: TreeNode) => {
   store.init(node.id);
 }
 
+const moveFileId = ref("")
+
+const dragstart = (id: string) => {
+  moveFileId.value = id;
+}
+
+const drop = async (e: DragEvent) => {
+  e.preventDefault();
+  if (!e.target) {
+    return;
+  }
+  console.log('e: ', e)
+  const target = e.target as HTMLElement;
+  const node = target.closest('.node');
+  if (!node || !node.id) {
+    await Apis.file.move_file_file_move_to_put({
+      params: {
+        id: moveFileId.value,
+      }
+    });
+    await getFiles();
+    return;
+  }
+  if (moveFileId.value === node.id) {
+    return;
+  }
+  await Apis.file.move_file_file_move_to_put({
+    params: {
+      id: moveFileId.value,
+      target_id: node.id
+    }
+  });
+  await getFiles();
+}
+
+const dragover = (e: DragEvent) => {
+  e.preventDefault();
+}
+
+const dragleave = (e: DragEvent) => {
+  e.preventDefault();
+}
 </script>
 
 <template>
   <ContextMenu>
     <ContextMenuTrigger class="h-full">
-      <ScrollArea class="h-full">
+      <ScrollArea class="h-full" @drop="drop" @dragover="dragover" @dragleave="dragleave">
         <Tree :data="treeData">
           <template #content="{ node }">
-            <GlowBorder
-              v-if="node.id === store.id"
-              :color="['#A07CFE', '#FE8FB5', '#FFBE7B']"
-              :border-radius="10"
-            />
-            <ContextMenu>
-              <ContextMenuTrigger class="flex justify-start items-center gap-2 w-full"
-                                  @dblclick="() => editDocument(node)">
-                <component :is="getIcon(node)" class="size-4"/>
-                <span class="text-sm select-none">{{ node.name }}</span>
-              </ContextMenuTrigger>
-              <ContextMenuContent class="w-48">
-                <ContextMenuItem inset @click="() => openCreateFileDialog(node.id, 'file')">
-                  New file
-                </ContextMenuItem>
-                <ContextMenuItem inset @click="() => openCreateFileDialog(node.id, 'folder')">
-                  New folder
-                </ContextMenuItem>
-                <ContextMenuSeparator/>
-                <ContextMenuItem inset>
-                  Rename
-                </ContextMenuItem>
-                <ContextMenuItem inset @click="() => openDeleteFileAlert(node.id)">
-                  Remove
-                </ContextMenuItem>
-              </ContextMenuContent>
-            </ContextMenu>
+            <div class="node w-full rounded-md" :id="node.id">
+              <BorderBeam
+                v-if="node.id === store.id"
+                :size="60"
+                :duration="4"
+                :delay="9"
+                :border-width="1"
+              />
+              <ContextMenu>
+                <ContextMenuTrigger draggable="true"
+                                    class="flex justify-start items-center gap-2 w-full"
+                                    @dragstart="() => dragstart(node.id)"
+                                    @dblclick="() => editDocument(node)">
+                  <component :is="getIcon(node)" class="size-4"/>
+                  <span class="text-sm select-none">{{ node.name }}</span>
+                </ContextMenuTrigger>
+                <ContextMenuContent class="w-48">
+                  <ContextMenuItem inset @click="() => openCreateFileDialog(node.id, 'file')">
+                    New file
+                  </ContextMenuItem>
+                  <ContextMenuItem inset @click="() => openCreateFileDialog(node.id, 'folder')">
+                    New folder
+                  </ContextMenuItem>
+                  <ContextMenuSeparator/>
+                  <ContextMenuItem inset>
+                    Rename
+                  </ContextMenuItem>
+                  <ContextMenuItem inset @click="() => openDeleteFileAlert(node.id)">
+                    Remove
+                  </ContextMenuItem>
+                </ContextMenuContent>
+              </ContextMenu>
+            </div>
           </template>
         </Tree>
       </ScrollArea>

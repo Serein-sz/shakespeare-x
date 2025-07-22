@@ -281,41 +281,6 @@ export type UserUpdate = {
    */
   password?: string | null;
 };
-export type FileTree = {
-  /**
-   * Id
-   * ---
-   */
-  id?: string | null;
-  /**
-   * Name
-   * ---
-   * [required]
-   */
-  name: string;
-  /**
-   * Parent Id
-   * ---
-   */
-  parent_id?: string | null;
-  /**
-   * Type
-   * ---
-   * [required]
-   */
-  type: 'folder' | 'file';
-  /**
-   * Content
-   * ---
-   */
-  content?: string | null;
-  /**
-   * User Id
-   * ---
-   * [required]
-   */
-  user_id: string;
-};
 export type FileTreeVo = {
   /**
    * Id
@@ -354,7 +319,7 @@ export type FileTreeVo = {
    * Children
    * ---
    */
-  children?: FileTree[] | null;
+  children?: FileTreeVo[] | null;
 };
 export type ApiResponse_list_FileTreeVo__ = {
   /**
@@ -451,6 +416,30 @@ export type FileTreeUpdateContent = {
    * [required]
    */
   content: string;
+};
+export type ApiResponse_bool_ = {
+  /**
+   * Code
+   * ---
+   * [required]
+   */
+  code: number;
+  /**
+   * Message
+   * ---
+   * [required]
+   */
+  message: string;
+  /**
+   * Data
+   * ---
+   */
+  data?: boolean | null;
+  /**
+   * Errors
+   * ---
+   */
+  errors?: string[] | null;
 };
 declare global {
   interface Apis {
@@ -746,23 +735,7 @@ declare global {
        *     // [required]
        *     user_id: string
        *     // [title] Children
-       *     children?: Array<{
-       *       // [title] Id
-       *       id?: string | null
-       *       // [title] Name
-       *       // [required]
-       *       name: string
-       *       // [title] Parent Id
-       *       parent_id?: string | null
-       *       // [title] Type
-       *       // [required]
-       *       type: 'folder' | 'file'
-       *       // [title] Content
-       *       content?: string | null
-       *       // [title] User Id
-       *       // [required]
-       *       user_id: string
-       *     }> | null
+       *     children?: Array<FileTreeVo> | null
        *   }> | null
        *   // [title] Errors
        *   errors?: string[] | null
@@ -972,6 +945,63 @@ declare global {
       >(
         config: Config
       ): Alova2Method<ApiResponse, 'file.update_file_file_update_content_put', Config>;
+      /**
+       * ---
+       *
+       * [PUT] Move File
+       *
+       * **path:** /file/move-to
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // [title] Id
+       *   // [required]
+       *   id: string
+       *   // [title] Target Id
+       *   target_id?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // [title] Code
+       *   // [required]
+       *   code: number
+       *   // [title] Message
+       *   // [required]
+       *   message: string
+       *   // [title] Data
+       *   data?: boolean | null
+       *   // [title] Errors
+       *   errors?: string[] | null
+       * }
+       * ```
+       */
+      move_file_file_move_to_put<
+        Config extends Alova2MethodConfig<ApiResponse_bool_> & {
+          params: {
+            /**
+             * Id
+             * ---
+             * [required]
+             */
+            id: string;
+            /**
+             * Target Id
+             * ---
+             */
+            target_id?: string | null;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<ApiResponse_bool_, 'file.move_file_file_move_to_put', Config>;
     };
   }
 

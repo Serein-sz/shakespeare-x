@@ -5,7 +5,7 @@ import TitleView from "./TitleView.vue";
 import {ScrollArea} from "@/components/ui/scroll-area";
 </script>
 <template>
-  <div class="w-full">
+  <div class="w-full flex">
     <ScrollArea class="w-full h-screen bg-[#1A1A1A]" ref="scrollAreaRef">
       <MilkdownEditorWrapper ref="editorWrapperRef"/>
     </ScrollArea>

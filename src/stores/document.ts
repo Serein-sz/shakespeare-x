@@ -26,16 +26,17 @@ export const useDocumentStore = defineStore('document', () => {
 
   const {send: updateContent} = useRequest(config => Apis.file.update_file_file_update_content_put(config), {immediate: false})
 
-  const updateMarkdown = throttle(async () => {
-    return await updateContent({
+  const updateMarkdown = throttle(
+    () => updateContent({
       data: {
         id: id.value,
         content: markdown.value
       }
-    })
-  }, 2000);
+    }),
+    2000
+  );
 
-  async function update(newValue: string) {
+  function update(newValue: string) {
     markdown.value = newValue;
     updateMarkdown();
   }

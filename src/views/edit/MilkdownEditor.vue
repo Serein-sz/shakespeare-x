@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {useTemplateRef, watch} from "vue";
+import {onMounted, ref, useTemplateRef, watch} from "vue";
 import {Crepe} from "@milkdown/crepe";
 import {Milkdown, useEditor} from "@milkdown/vue";
 import {replaceAll} from "@milkdown/kit/utils"
 import {useDocumentStore} from "@/stores/document";
 import {storeToRefs} from "pinia";
-import {TextHoverEffect} from "@/components/ui/text-hover-effect";
+import MilkdownEditorWrapper from "@/views/edit/MilkdownEditorWrapper.vue";
 
 const store = useDocumentStore();
 const {id, markdown} = storeToRefs(store);
@@ -41,6 +41,10 @@ const {get} = useEditor((root: HTMLDivElement) => {
     listener.markdownUpdated(() => {
       store.update(crepe.getMarkdown())
       updateTitle();
+      if (!editorWrapperRef.value) {
+        return;
+      }
+      disableSpellcheck(editorWrapperRef.value)
     });
   })
   return crepe;
@@ -50,6 +54,44 @@ watch(() => id.value, () => {
   const instance = get();
   instance?.action(replaceAll(markdown.value))
 })
+
+
+onMounted(() => {
+  if (!editorWrapperRef.value) {
+    return;
+  }
+  disableSpellcheck(editorWrapperRef.value)
+  // 设置observer处理未来添加的元素
+  // const observer = new MutationObserver((mutations) => {
+  //   mutations.forEach((mutation) => {
+  //     mutation.addedNodes.forEach((node) => {
+  //       if (node.nodeType === 1) {
+  //         disableSpellcheck(node as HTMLElement);
+  //       }
+  //     });
+  //   });
+  // });
+  //
+  // observer.observe(editorWrapperRef.value, {
+  //   childList: true,
+  //   subtree: true
+  // });
+})
+
+function disableSpellcheck(element: HTMLElement) {
+  if (element.tagName === "svg") {
+    return;
+  }
+  // 设置当前元素
+  element.spellcheck = false;
+  if (!element.children) {
+    return;
+  }
+  // 递归处理所有子元素
+  for (let child of element.children) {
+    disableSpellcheck(child as HTMLElement);
+  }
+}
 
 </script>
 
