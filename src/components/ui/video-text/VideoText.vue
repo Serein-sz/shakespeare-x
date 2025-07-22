@@ -65,7 +65,7 @@ const defaultSlot = slots.default;
 const content = computed(
   () =>
     defaultSlot?.()
-      .map((vnode) => vnode.children)
+      .map((vnode: HTMLElement) => vnode.children)
       .join("") ?? "",
 );
 

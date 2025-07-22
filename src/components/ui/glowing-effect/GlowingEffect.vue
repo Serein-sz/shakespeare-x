@@ -16,7 +16,7 @@
       cn(
         'pointer-events-none absolute inset-0 rounded-[inherit] opacity-100 transition-opacity',
         glow && 'opacity-100',
-        blur > 0 && 'blur-[var(--blur)]',
+        (blur && blur > 0) && 'blur-[var(--blur)]',
         props.class,
         disabled && '!hidden',
       )

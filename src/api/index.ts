@@ -40,7 +40,7 @@ const {onAuthRequired, onResponseRefreshToken}
 
 
 export const alovaInstance = createAlova({
-  baseURL: 'http://192.168.2.17:8000',
+  baseURL: import.meta.env.BASE_URL,
   statesHook: vueHook,
   requestAdapter: fetchAdapter(),
   cacheFor: null,
