@@ -38,6 +38,7 @@ import Apis from "@/api";
 import {ref} from "vue";
 import {useDocumentStore} from "@/stores/document.ts";
 import {GlowBorder} from "@/components/ui/glow-border";
+import {NeonBorder} from "@/components/ui/neon-border";
 
 
 const {data: treeData, send: getFiles} = useRequest<AlovaGenerics<FileTreeVo[]>, any>(
@@ -112,7 +113,7 @@ const editDocument = (node: TreeNode) => {
     <ContextMenuTrigger class="h-full">
       <ScrollArea class="h-full">
         <Tree :data="treeData">
-          <template #content="{ node }" class="relative">
+          <template #content="{ node }">
             <GlowBorder
               v-if="node.id === store.id"
               :color="['#A07CFE', '#FE8FB5', '#FFBE7B']"

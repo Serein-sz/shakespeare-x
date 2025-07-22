@@ -26,10 +26,12 @@ const TreeItem = defineComponent(
                 </div>
             }
             {
-              hasChildren.value ? <CollapsibleTrigger as-child>
-                <ChevronRight
-                  class={"size-4 transition-all transition-duration-300" + (isOpen.value ? ' rotate-90' : '')}/>
-              </CollapsibleTrigger> : null
+              hasChildren.value ?
+                <CollapsibleTrigger as-child>
+                  <ChevronRight
+                    class={"size-4 transition-all transition-duration-300" + (isOpen.value ? ' rotate-90' : '')}
+                  />
+                </CollapsibleTrigger> : null
             }
           </div>
           <CollapsibleContent>
