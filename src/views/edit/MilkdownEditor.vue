@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import {onMounted, ref, useTemplateRef, watch} from "vue";
+import {onMounted, useTemplateRef, watch} from "vue";
 import {Crepe} from "@milkdown/crepe";
 import {Milkdown, useEditor} from "@milkdown/vue";
 import {replaceAll} from "@milkdown/kit/utils"
 import {useDocumentStore} from "@/stores/document";
 import {storeToRefs} from "pinia";
-import MilkdownEditorWrapper from "@/views/edit/MilkdownEditorWrapper.vue";
 
 const store = useDocumentStore();
 const {id, markdown} = storeToRefs(store);

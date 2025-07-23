@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { useRafFn, templateRef } from "@vueuse/core";
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import {templateRef, useRafFn} from "@vueuse/core";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 
 interface Props {
   background?: string;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-import { reactiveOmit } from '@vueuse/core'
-import { X } from 'lucide-vue-next'
+import type {HTMLAttributes} from 'vue'
+import {reactiveOmit} from '@vueuse/core'
+import {X} from 'lucide-vue-next'
 import {
   DialogClose,
   DialogContent,
@@ -10,7 +10,7 @@ import {
   DialogPortal,
   useForwardPropsEmits,
 } from 'reka-ui'
-import { cn } from '@/lib/utils'
+import {cn} from '@/lib/utils'
 import SheetOverlay from './SheetOverlay.vue'
 
 interface SheetContentProps extends DialogContentProps {
