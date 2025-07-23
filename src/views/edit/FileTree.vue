@@ -116,7 +116,6 @@ const drop = async (e: DragEvent) => {
   if (!e.target) {
     return;
   }
-  console.log('e: ', e)
   const target = e.target as HTMLElement;
   const node = target.closest('.node');
   if (!node || !node.id) {

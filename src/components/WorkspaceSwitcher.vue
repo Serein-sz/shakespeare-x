@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ChevronsUpDown, Plus} from 'lucide-vue-next'
+import {ChevronsUpDown, GalleryVerticalEnd} from 'lucide-vue-next'
 
 import {type Component, ref} from 'vue'
 import {
@@ -7,29 +7,22 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from '@/components/ui/sidebar'
+import {SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,} from '@/components/ui/sidebar'
 import {GlowingEffect} from "@/components/ui/glowing-effect";
 
-const props = defineProps<{
-  workspaces: {
-    name: string
-    logo: Component
-    plan: string
-  }[]
-}>()
+const workspaces = [
+  {
+    name: 'Document',
+    logo: GalleryVerticalEnd,
+    plan: 'Free',
+  },
+]
 
 const {isMobile} = useSidebar()
-const activeWorkspace = ref(props.workspaces[0])
+const activeWorkspace = ref(workspaces[0])
 </script>
 
 <template>
@@ -71,7 +64,7 @@ const activeWorkspace = ref(props.workspaces[0])
             Workspaces
           </DropdownMenuLabel>
           <DropdownMenuItem
-            v-for="(workspace, index) in workspaces"
+            v-for="(workspace) in workspaces"
             :key="workspace.name"
             class="gap-2 p-2"
             @click="activeWorkspace = workspace"
@@ -80,15 +73,6 @@ const activeWorkspace = ref(props.workspaces[0])
               <component :is="workspace.logo" class="size-3.5 shrink-0"/>
             </div>
             {{ workspace.name }}
-          </DropdownMenuItem>
-          <DropdownMenuSeparator/>
-          <DropdownMenuItem class="gap-2 p-2">
-            <div class="flex size-6 items-center justify-center rounded-md border bg-transparent">
-              <Plus class="size-4"/>
-            </div>
-            <div class="font-medium text-muted-foreground">
-              Add workspace
-            </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
