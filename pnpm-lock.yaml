@@ -20,6 +20,9 @@ importers:
       '@milkdown/vue':
         specifier: ^7.15.1
         version: 7.15.1(@codemirror/language@6.11.2)(@codemirror/state@6.5.2)(@codemirror/view@6.38.0)(prosemirror-model@1.25.1)(prosemirror-state@1.4.3)(prosemirror-view@1.40.0)(typescript@5.8.3)(vue@3.6.0-alpha.2(typescript@5.8.3))
+      '@prosemirror-adapter/vue':
+        specifier: ^0.4.1
+        version: 0.4.1(vue@3.6.0-alpha.2(typescript@5.8.3))
       '@tailwindcss/vite':
         specifier: ^4.1.11
         version: 4.1.11(rolldown-vite@7.0.9(@types/node@22.16.5)(esbuild@0.25.5)(jiti@2.4.2))
@@ -1050,6 +1053,17 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@prosemirror-adapter/core@0.4.0':
+    resolution: {integrity: sha512-feLFTIvbpQDnWspZv+rjTPmqpeJ8++VM/gDnBaDNLsAEvrwmO1IHc0oyrRBl/9x3Er3tU/WXc86TlOidsN1aEg==}
+
+  '@prosemirror-adapter/vue@0.4.1':
+    resolution: {integrity: sha512-zva577Bn0MLhCTYVZaUTZvOggpNMBA6n2ldmPxzYN9MJih59KYTBWmaBcZTXsGNHe9K8Wwr92WtJGG6e3Iy30w==}
+    peerDependencies:
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      vue:
+        optional: true
 
   '@rolldown/binding-android-arm64@1.0.0-beta.27':
     resolution: {integrity: sha512-IJL3efUJmvb5MfTEi7bGK4jq3ZFAzVbSy+vmul0DcdrglUd81Tfyy7Zzq2oM0tUgmACG32d8Jz/ykbpbf+3C5A==}
@@ -5011,6 +5025,18 @@ snapshots:
     optional: true
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@prosemirror-adapter/core@0.4.0':
+    dependencies:
+      tslib: 2.8.1
+
+  '@prosemirror-adapter/vue@0.4.1(vue@3.6.0-alpha.2(typescript@5.8.3))':
+    dependencies:
+      '@prosemirror-adapter/core': 0.4.0
+      nanoid: 5.1.5
+      tslib: 2.8.1
+    optionalDependencies:
+      vue: 3.6.0-alpha.2(typescript@5.8.3)
 
   '@rolldown/binding-android-arm64@1.0.0-beta.27':
     optional: true

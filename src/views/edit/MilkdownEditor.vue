@@ -3,6 +3,9 @@ import {onMounted, useTemplateRef, watch} from "vue";
 import {Crepe} from "@milkdown/crepe";
 import {Milkdown, useEditor} from "@milkdown/vue";
 import {replaceAll} from "@milkdown/kit/utils"
+import {slashFactory} from '@milkdown/kit/plugin/slash';
+import {usePluginViewFactory} from '@prosemirror-adapter/vue';
+import Slash from './components/Slash.vue';
 import {useDocumentStore} from "@/stores/document";
 import {storeToRefs} from "pinia";
 
@@ -54,27 +57,23 @@ watch(() => id.value, () => {
   instance?.action(replaceAll(markdown.value))
 })
 
+const tooltip = slashFactory('Commands');
+const pluginViewFactory = usePluginViewFactory();
 
 onMounted(() => {
   if (!editorWrapperRef.value) {
     return;
   }
-  disableSpellcheck(editorWrapperRef.value)
-  // 设置observer处理未来添加的元素
-  // const observer = new MutationObserver((mutations) => {
-  //   mutations.forEach((mutation) => {
-  //     mutation.addedNodes.forEach((node) => {
-  //       if (node.nodeType === 1) {
-  //         disableSpellcheck(node as HTMLElement);
-  //       }
-  //     });
-  //   });
-  // });
-  //
-  // observer.observe(editorWrapperRef.value, {
-  //   childList: true,
-  //   subtree: true
-  // });
+  disableSpellcheck(editorWrapperRef.value);
+  const instance = get();
+  instance?.config((ctx) => {
+    ctx.set(tooltip.key, {
+      view: pluginViewFactory({
+        component: Slash
+      }),
+    })
+  })
+    .use(tooltip)
 })
 
 function disableSpellcheck(element: HTMLElement) {
