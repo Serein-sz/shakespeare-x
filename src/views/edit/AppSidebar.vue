@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import {AudioWaveform, Command, GalleryVerticalEnd, Search} from 'lucide-vue-next'
 import {
-  SidebarGroup,
-  SidebarGroupContent, SidebarGroupLabel,
-  SidebarInput,
-  type SidebarProps
-} from '@/components/ui/sidebar'
-import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
-  SidebarRail,
+  SidebarInput,
+  type SidebarProps,
+  SidebarRail
 } from '@/components/ui/sidebar'
 import {Label} from '@/components/ui/label'
 import NavUser from '@/views/home/NavUser.vue'

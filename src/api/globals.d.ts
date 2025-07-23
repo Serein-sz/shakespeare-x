@@ -14,8 +14,8 @@
  *
  * **Do not edit the file manually.**
  */
-import type { Alova, AlovaMethodCreateConfig, AlovaGenerics, Method } from 'alova';
-import type { $$userConfigMap, alovaInstance } from '.';
+import type {Alova, AlovaGenerics, AlovaMethodCreateConfig, Method} from 'alova';
+import type {$$userConfigMap, alovaInstance} from '.';
 import type apiDefinitions from './apiDefinitions';
 
 type CollapsedAlova = typeof alovaInstance;
