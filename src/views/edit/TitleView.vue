@@ -11,7 +11,7 @@ const markerRef = useTemplateRef<HTMLDivElement | null>('markerRef');
 const titleRef = useTemplateRef<HTMLDivElement[] | null>('titleRef');
 
 watch(() => currentActiveElementIndex.value, (newIndex) => {
-  if (!markerRef.value) {
+  if (!markerRef.value || !titleRef.value) {
     console.error("Marker reference is not set.");
     return;
   }

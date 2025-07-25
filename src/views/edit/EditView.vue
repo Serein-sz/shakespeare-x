@@ -13,6 +13,9 @@ const {titleElements} = storeToRefs(store);
 const editorWrapperRef = useTemplateRef("editorWrapperRef");
 
 const scrollArea = (event: Event) => {
+  if (!editorWrapperRef.value) {
+    return;
+  }
   // do something, it will be called at most 1 time per second
   const scrollAreaElement = event.target as HTMLElement;
   const scrollTop = scrollAreaElement.scrollTop;
