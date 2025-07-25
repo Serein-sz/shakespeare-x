@@ -3,14 +3,12 @@ import {onMounted, useTemplateRef, watch} from "vue";
 import {Crepe} from "@milkdown/crepe";
 import {Milkdown, useEditor} from "@milkdown/vue";
 import {replaceAll} from "@milkdown/kit/utils"
-import {slashFactory} from '@milkdown/kit/plugin/slash';
-import {usePluginViewFactory} from '@prosemirror-adapter/vue';
-import Slash from './components/Slash.vue';
 import {useDocumentStore} from "@/stores/document";
 import {storeToRefs} from "pinia";
 
 const store = useDocumentStore();
 const {id, markdown} = storeToRefs(store);
+const { updateTitleElements, update } = store;
 const editorWrapperRef = useTemplateRef<HTMLDivElement | null>('editorWrapperRef');
 
 function updateTitle() {
@@ -18,7 +16,7 @@ function updateTitle() {
     console.error("Editor wrapper reference is not set.");
     return;
   }
-  const titles = Array.from(editorWrapperRef.value.querySelectorAll(`
+  const titles = Array.from<HTMLElement>(editorWrapperRef.value.querySelectorAll(`
     .milkdown > div:nth-child(1) h1,
     .milkdown > div:nth-child(1) h2,
     .milkdown > div:nth-child(1) h3,
@@ -30,18 +28,17 @@ function updateTitle() {
     console.warn("No title elements found.");
     return;
   }
-  store.updateTitleElements(titles as HTMLElement[]);
+  updateTitleElements(titles);
 }
 
 const {get} = useEditor((root: HTMLDivElement) => {
   const crepe = new Crepe({root, defaultValue: markdown.value})
   crepe.on(listener => {
     listener.mounted(() => {
-      console.log("Crepe editor mounted");
       updateTitle()
     });
     listener.markdownUpdated(() => {
-      store.update(crepe.getMarkdown())
+      update(crepe.getMarkdown())
       updateTitle();
       if (!editorWrapperRef.value) {
         return;
@@ -57,24 +54,14 @@ watch(() => id.value, () => {
   instance?.action(replaceAll(markdown.value))
 })
 
-const tooltip = slashFactory('Commands');
-const pluginViewFactory = usePluginViewFactory();
-
 onMounted(() => {
   if (!editorWrapperRef.value) {
     return;
   }
   disableSpellcheck(editorWrapperRef.value);
-  const instance = get();
-  instance?.config((ctx) => {
-    ctx.set(tooltip.key, {
-      view: pluginViewFactory({
-        component: Slash
-      }),
-    })
-  })
-    .use(tooltip)
+
 })
+
 
 function disableSpellcheck(element: HTMLElement) {
   if (element.tagName === "svg") {
@@ -90,6 +77,7 @@ function disableSpellcheck(element: HTMLElement) {
     disableSpellcheck(child as HTMLElement);
   }
 }
+
 
 </script>
 

@@ -5,8 +5,8 @@ import {createCodeBlockCommand} from '@milkdown/kit/preset/commonmark';
 import {callCommand} from '@milkdown/kit/utils';
 import {useInstance} from '@milkdown/vue';
 import {usePluginViewContext} from '@prosemirror-adapter/vue';
-import {onMounted, onUnmounted, ref, watch} from 'vue';
 import type {VNodeRef} from "vue";
+import {onMounted, onUnmounted, ref, watch} from 'vue';
 
 const {view, prevState} = usePluginViewContext()
 const [loading, get] = useInstance()

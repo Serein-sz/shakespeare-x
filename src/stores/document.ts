@@ -1,4 +1,4 @@
-import {ref} from 'vue';
+import {ref, shallowRef} from 'vue';
 import {defineStore} from 'pinia';
 import {useRequest} from "alova/client";
 import type {AlovaGenerics} from "alova";
@@ -8,10 +8,15 @@ import Apis from "@/api";
 export const useDocumentStore = defineStore('document', () => {
   const id = ref("");
   const markdown = ref("");
-  const titleElements = ref<HTMLElement[]>([]);
+  const currentActiveElementIndex = ref(-1);
+  const titleElements = shallowRef<HTMLElement[]>([]);
 
   function updateTitleElements(newTitleElements: HTMLElement[]) {
     titleElements.value = newTitleElements;
+  }
+
+  function activeTitle(index: number) {
+    currentActiveElementIndex.value = index;
   }
 
   const {send: getContent} = useRequest<AlovaGenerics<string>, any>(Apis.file.get_file_content_by_id_file__id__get, {
@@ -41,5 +46,14 @@ export const useDocumentStore = defineStore('document', () => {
     updateMarkdown();
   }
 
-  return {id, markdown, init, update, titleElements, updateTitleElements}
+  return {
+    id,
+    markdown,
+    init,
+    update,
+    titleElements,
+    updateTitleElements,
+    currentActiveElementIndex,
+    activeTitle,
+  }
 })

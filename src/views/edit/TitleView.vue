@@ -1,25 +1,22 @@
 <script setup lang="ts">
-import {ref, useTemplateRef} from "vue";
+import {useTemplateRef, watch} from "vue";
 import {useDocumentStore} from "@/stores/document";
+import {storeToRefs} from "pinia";
 
 const store = useDocumentStore();
+const {titleElements, currentActiveElementIndex} = storeToRefs(store);
+const {activeTitle} = store;
 
 const markerRef = useTemplateRef<HTMLDivElement | null>('markerRef');
-const currentActiveElement = ref<HTMLElement | null>(null);
+const titleRef = useTemplateRef<HTMLDivElement[] | null>('titleRef');
 
-function activeTitle(event: MouseEvent, element: HTMLElement) {
-  currentActiveElement.value = element;
+watch(() => currentActiveElementIndex.value, (newIndex) => {
   if (!markerRef.value) {
     console.error("Marker reference is not set.");
     return;
   }
-  const target = event.target as HTMLElement;
-  markerRef.value.style.top = `calc(${target.offsetTop}px + 0.375rem)`;
-  // element.scrollIntoView({
-  //   behavior: 'smooth', // 可选：'auto'（立即滚动）或 'smooth'（平滑滚动）
-  //   block: 'start'      // 使元素顶部对齐容器顶部
-  // });
-}
+  markerRef.value.style.top = `calc(${titleRef.value[newIndex].offsetTop}px)`;
+})
 
 function getTitleLevel(element: HTMLElement): number {
   const tagName = element.tagName.toLowerCase();
@@ -49,10 +46,13 @@ function getTitleLevel(element: HTMLElement): number {
       <div ref="markerRef" class="absolute bg-[#a8b1ff] w-[2px] h-6 left-[-1px] top-[0.375rem]
       transition-[top] duration-[250ms] ease-[cubic-bezier(0,1,0.5,1)]"/>
       <div v-for="(item, index) in store.titleElements" :key="index"
-           @click="event => activeTitle(event, item)"
+           ref="titleRef"
+           @click="() => activeTitle(index)"
            class="cursor-pointer text-sm text-[#98989f] hover:text-[#dfdfd6] m-2 py-1 rounded-md"
-           :class="{ [`h${getTitleLevel(item)}`]: true, 'text-[#dfdfd6]': currentActiveElement === item }">
-        {{ item.innerText }}
+           :class="{ [`h${getTitleLevel(item)}`]: true, 'text-[#dfdfd6]': currentActiveElementIndex === index }">
+        <a :href="`#${item.id}`">
+          {{ item.innerText }}
+        </a>
       </div>
     </div>
   </nav>
