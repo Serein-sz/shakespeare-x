@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* eslint-disable */
+
 /**
  * FastAPI - version 0.1.0
  *
@@ -39,9 +39,8 @@ const createFunctionalProxy = (array: (string | symbol)[], alovaInstance: Alova<
       };
       const [method, url] = apiItem;
       const pathParams = mergedConfig.pathParams;
-      const urlReplaced = url.replace(/\{([^}]+)\}/g, (_, key) => {
-        const pathParam = pathParams[key];
-        return pathParam;
+      const urlReplaced = url.replace(/\{([^}]+)}/g, (_, key) => {
+        return pathParams[key];
       });
       delete mergedConfig.pathParams;
       let data = mergedConfig.data;

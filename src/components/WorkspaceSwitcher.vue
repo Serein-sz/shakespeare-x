@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ChevronsUpDown, GalleryVerticalEnd} from 'lucide-vue-next'
 
-import {type Component, ref} from 'vue'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +11,7 @@ import {
 
 import {SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,} from '@/components/ui/sidebar'
 import {GlowingEffect} from "@/components/ui/glowing-effect";
+import { ref } from 'vue';
 
 const workspaces = [
   {

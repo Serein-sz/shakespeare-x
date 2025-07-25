@@ -41,11 +41,11 @@ function getTitleLevel(element: HTMLElement): number {
 
 </script>
 <template>
-  <nav v-if="store.titleElements && store.titleElements.length > 0">
+  <nav v-if="titleElements && titleElements.length > 0">
     <div class="relative pl-4">
       <div ref="markerRef" class="absolute bg-[#a8b1ff] w-[2px] h-6 left-[-1px] top-[0.375rem]
       transition-[top] duration-[250ms] ease-[cubic-bezier(0,1,0.5,1)]"/>
-      <div v-for="(item, index) in store.titleElements" :key="index"
+      <div v-for="(item, index) in titleElements" :key="index"
            ref="titleRef"
            @click="() => activeTitle(index)"
            class="cursor-pointer text-sm text-[#98989f] hover:text-[#dfdfd6] m-2 py-1 rounded-md"
@@ -59,8 +59,8 @@ function getTitleLevel(element: HTMLElement): number {
 </template>
 <style scoped>
 .h1 {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .h2 {

@@ -1,6 +1,6 @@
 /// <reference types='./globals.d.ts' />
 /* tslint:disable */
-/* eslint-disable */
+ 
 /**
  * FastAPI - version 0.1.0
  *

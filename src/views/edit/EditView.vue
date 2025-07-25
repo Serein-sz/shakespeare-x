@@ -4,12 +4,10 @@ import MilkdownEditorWrapper from "./MilkdownEditorWrapper.vue"
 import TitleView from "./TitleView.vue";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {useDocumentStore} from "@/stores/document.ts";
-import {storeToRefs} from "pinia";
 import {useTemplateRef} from "vue";
 
 const store = useDocumentStore();
 
-const {titleElements} = storeToRefs(store);
 const editorWrapperRef = useTemplateRef("editorWrapperRef");
 
 const scrollArea = (event: Event) => {

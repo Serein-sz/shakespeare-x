@@ -73,7 +73,7 @@ function disableSpellcheck(element: HTMLElement) {
     return;
   }
   // 递归处理所有子元素
-  for (let child of element.children) {
+  for (const child of element.children) {
     disableSpellcheck(child as HTMLElement);
   }
 }
